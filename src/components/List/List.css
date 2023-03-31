@@ -1,0 +1,25 @@
+.list-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 5px;
+}
+
+.list-item {
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 5px;
+	width: 200px;
+}
+
+.list-item-image-wrapper {
+	width: 100%;
+	height: 200px;
+}
+
+.list-item-image {
+	width: 100%;
+}
