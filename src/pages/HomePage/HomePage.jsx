@@ -1,10 +1,14 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import List from '../../components/List/List';
-import { AppContext } from '../../context';
+import { useDispatch, useSelector } from 'react-redux';
+import { favoritesActions } from '../../store/favorites';
+import { pokemonsActions } from '../../store/pokemons';
 
 function HomePage() {
-	const appContext = useContext(AppContext);
-	const [nextPage, setNextPage] = useState(null);
+	const dispatch = useDispatch();
+
+	const pokemons = useSelector(({ pokemons }) => pokemons);
+	const favorites = useSelector(({ favorites }) => favorites);
 
 	const getTargets = useCallback(async (url) => {
 		const response = await fetch(url);
@@ -14,60 +18,73 @@ function HomePage() {
 
 	const getDetails = useCallback(async (targets) => {
 		const promises = targets.map((target) => {
-			return fetch(target.url).then((response) => response.json());
+			return fetch(target.url)
+				.then((response) => response.json())
+				.then((data) => {
+					const { name, sprites } = data;
+					const sprite = sprites.other['official-artwork'].front_default;
+					return { name, sprite };
+				});
 		});
 		return await Promise.all(promises);
 	}, []);
 
 	const getPokemons = useCallback(async () => {
-		if (appContext.pokemons.length > 0) {
-			return;
-		}
-		console.log('getPokemons');
 		try {
 			const { results, next } = await getTargets('https://pokeapi.co/api/v2/pokemon?limit=30');
 			const details = await getDetails(results);
-			const detailsMap = details.map(({ id, name, sprites }) => {
-				return { id, name, sprites };
-			});
-			appContext.setPokemonsList(detailsMap);
-			setNextPage(next);
+			console.log('a', details);
+			dispatch(pokemonsActions.init({
+				nextPage: next,
+				list: details
+			}));
 		} catch(error) {
 			console.error(error);
 		}
-	}, [appContext, getDetails, getTargets]);
+	}, [dispatch, getDetails, getTargets]);
 
 	useEffect(() => {
+		// Get local data
+		const localData = localStorage.getItem('pokemons-list');
+		if (localData) {
+			const parsedData = JSON.parse(localData);
+			const { favorites, pokemons } = parsedData;
+			dispatch(favoritesActions.init(favorites));
+			dispatch(pokemonsActions.init(pokemons));
+			return;
+		}
 		getPokemons();
-	}, [getPokemons]);
+	}, [dispatch, getPokemons]);
 
 	const loadMore = useCallback(async () => {
 		try {
-			const { results, next } = await getTargets(nextPage);
+			const { results, next } = await getTargets(pokemons.nextPage);
 			const details = await getDetails(results);
-			appContext.setPokemonsList([...appContext.pokemons, ...details]);
-			setNextPage(next);
+			dispatch(pokemonsActions.set({
+				nextPage: next,
+				list: [...pokemons.list, ...details]
+			}));
 		} catch(error) {
 			console.error(error);
 		}
 
-	}, [appContext, getDetails, getTargets, nextPage]);
+	}, [dispatch, pokemons, getDetails, getTargets]);
 
 	const handleItemFavorite = useCallback((value) => {
 		const targetName = value.name;
-		if (appContext.favorites.includes(targetName)) {
-			appContext.removeFavorite(targetName);
+		if (favorites.includes(targetName)) {
+			dispatch(favoritesActions.remove(targetName));
 		} else {
-			appContext.addFavorite(targetName);
+			dispatch(favoritesActions.add(targetName));
 		}
-	}, [appContext]);
+	}, [dispatch, favorites]);
 
   return (
     <div>
       <p>App</p>
 			<List
-				items={appContext.pokemons}
-				favorites={appContext.favorites}
+				items={pokemons.list}
+				favorites={favorites}
 				onItemFavorite={handleItemFavorite}
 			/>
 			<button onClick={loadMore}>Carregar mais</button>

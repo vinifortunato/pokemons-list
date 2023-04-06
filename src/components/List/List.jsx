@@ -11,7 +11,7 @@ function List({ items = [], favorites = [], onItemFavorite }) {
 	const itemsMap = useMemo(() => {
 		return items.map((pokemon) => {
 			const isFavorite = favorites.includes(pokemon.name);
-			const sprite = pokemon.sprites.other['official-artwork'].front_default;
+			const sprite = pokemon.sprite;
 			return (
 				<div key={pokemon.name} className="list-item">
 					<div className="list-item-heart-adapter">
