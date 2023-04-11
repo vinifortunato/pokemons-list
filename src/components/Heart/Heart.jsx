@@ -1,12 +1,18 @@
+import { useCallback } from 'react';
 import './Heart.css';
 
-function Heart({ onClick, selected = false }) {
+function Heart({ onClick, selected = false, testId = 'heart' }) {
+	const handleOnClick = useCallback(() => {
+		onClick && onClick();
+	}, [onClick]);
+
 	return (
 		<svg
 			version="1.1"
 			viewBox="0 0 472.7 472.7"
 			className={`heart${selected ? ' heart-selected' : ''}`}
-			onClick={onClick}
+			onClick={handleOnClick}
+			data-testid={testId}
 		>
 			<g>
 					<path id="XMLID_810_" d="M433.5,67c-25.3-25.3-59-39.3-94.8-39.3s-69.6,14-94.9,39.4l-7.3,7.3l-7.5-7.5

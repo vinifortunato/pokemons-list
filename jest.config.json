@@ -1,0 +1,16 @@
+{
+	"testEnvironment": "jest-environment-jsdom",
+	"setupFilesAfterEnv": ["<rootDir>/.jest/setupTests.js"],
+	"moduleNameMapper": {
+    "\\.(gif|ttf|eot|svg|png)$": "<rootDir>/.jest/__mocks__/fileMock.js",
+		"\\.(css|less|sass|scss)$": "identity-obj-proxy"
+  },
+	"modulePathIgnorePatterns": ["Router"],
+	"collectCoverage": true,
+	"collectCoverageFrom": [
+		"src/components/**/*.{js,jsx}"
+	],
+	"coverageReporters": [
+		"lcov"
+	]
+}

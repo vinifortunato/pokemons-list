@@ -1,12 +1,11 @@
-import { useContext } from 'react';
-import { AppContext } from '../../context';
 import { Link, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function DetailsPage() {
-	const appContext = useContext(AppContext);
+	const pokemons = useSelector(({ pokemons }) => pokemons.list);
 	const params = useParams();
 
-	const pokemon = appContext.pokemons.find((element) => {
+	const pokemon = pokemons.find((element) => {
 		return element.name === params.name;
 	});
 
