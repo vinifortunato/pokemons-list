@@ -10,3 +10,7 @@
 .heart:hover {
 	fill: red;
 }
+
+.heart-storybook-wrapper {
+	width: 64px;
+}

@@ -1,10 +1,17 @@
 {
 	"extends": [
 		"react-app",
-		"plugin:cypress/recommended"
+		"plugin:cypress/recommended",
+		"plugin:storybook/recommended"
 	],
 	"rules": {
-		"semi": ["error", "always"],
-		"quotes": ["error", "single"]
+		"semi": [
+			"error",
+			"always"
+		],
+		"quotes": [
+			"error",
+			"single"
+		]
 	}
 }

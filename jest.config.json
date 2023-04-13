@@ -11,7 +11,8 @@
 	"collectCoverage": true,
 	"collectCoverageFrom": [
 		"src/components/**/*.{js,jsx}",
-		"!src/components/**/*.cy.{js,jsx}"
+		"!src/components/**/*.cy.{js,jsx}",
+		"!src/components/**/*.stories.{js,jsx}"
 	],
 	"coverageReporters": [
 		"lcov"
