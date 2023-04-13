@@ -1,12 +1,15 @@
 import { useCallback, useMemo } from 'react';
 import Heart from '../Heart';
 import './List.css';
-import { Link } from 'react-router-dom';
 
-function List({ items = [], favorites = [], onItemFavorite }) {
+function List({ items = [], favorites = [], onItemFavorite, onItemDetailsClick }) {
 	const handleOnHeartClick = useCallback((value) => {
 		onItemFavorite && onItemFavorite(value);
 	}, [onItemFavorite]);
+
+	const handleDetailsClick = useCallback((pokemon) => {
+		onItemDetailsClick && onItemDetailsClick(pokemon);
+	}, [onItemDetailsClick]);
 
 	const itemsMap = useMemo(() => {
 		return items.map((pokemon) => {
@@ -24,11 +27,11 @@ function List({ items = [], favorites = [], onItemFavorite }) {
 					<div className="list-item-image-wrapper">
 						<img alt={pokemon.name} src={sprite} className="list-item-image" />
 					</div>
-					<Link to={`/details/${pokemon.name}`}>{pokemon.name}</Link>
+					<button data-testid={`list-item-${pokemon.name}-destails-button`} onClick={() => handleDetailsClick(pokemon)}>{pokemon.name}</button>
 				</div>
 			);
 		});
-	}, [items, handleOnHeartClick, favorites]);
+	}, [items, handleOnHeartClick, handleDetailsClick, favorites]);
 
 	return (
 		<div className="list-wrapper" data-testid="list">

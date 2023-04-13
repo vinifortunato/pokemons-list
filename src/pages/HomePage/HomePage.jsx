@@ -3,9 +3,11 @@ import List from '../../components/List/List';
 import { useDispatch, useSelector } from 'react-redux';
 import { favoritesActions } from '../../store/favorites';
 import { pokemonsActions } from '../../store/pokemons';
+import { useNavigate } from 'react-router-dom';
 
 function HomePage() {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const pokemons = useSelector(({ pokemons }) => pokemons);
 	const favorites = useSelector(({ favorites }) => favorites);
@@ -79,6 +81,10 @@ function HomePage() {
 		}
 	}, [dispatch, favorites]);
 
+	const handleDetailsClick = useCallback((pokemon) => {
+		navigate(`/details/${pokemon.name}`);
+	}, [navigate]);
+
   return (
     <div>
       <p>App</p>
@@ -86,6 +92,7 @@ function HomePage() {
 				items={pokemons.list}
 				favorites={favorites}
 				onItemFavorite={handleItemFavorite}
+				onItemDetailsClick={handleDetailsClick}
 			/>
 			<button onClick={loadMore}>Carregar mais</button>
     </div>
