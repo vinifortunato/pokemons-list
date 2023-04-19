@@ -1,0 +1,12 @@
+.page-wrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.page-container {
+	width: calc(100% - 20px);
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0px 10px;
+}

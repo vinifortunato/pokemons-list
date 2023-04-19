@@ -1,0 +1,43 @@
+.header-wrapper {
+	display: flex;
+	background-color: #0B6EFD;
+	color: #ffffff;
+	justify-content: space-between;
+	padding: 10px 15px;
+	margin-bottom: 15px;
+	font-size: small;
+}
+
+.header-menu-container {
+	display: flex;
+	flex: 1;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.header-logo-container {
+	display: flex;
+	flex: 1;
+	justify-content: center;
+	align-items: center;
+}
+
+.header-utils-container {
+	display: flex;
+	flex: 1;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.header-utils-pokeball-text {
+	margin-right: 8px;
+}
+
+.header-icon-adapter {
+	width: 20px;
+	height: 20px;
+}
+
+.header-icon {
+	width: 100%;
+}
