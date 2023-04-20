@@ -74,12 +74,12 @@ function HomePage() {
 
 	}, [dispatch, pokemons, getDetails, getTargets]);
 
-	const handleItemFavorite = useCallback((value) => {
-		const targetName = value.name;
-		if (favorites.includes(targetName)) {
-			dispatch(favoritesActions.remove(targetName));
+	const handleItemFavorite = useCallback((target) => {
+		const exists = favorites.find((element) => element.name === target.name);
+		if (exists) {
+			dispatch(favoritesActions.remove(target));
 		} else {
-			dispatch(favoritesActions.add(targetName));
+			dispatch(favoritesActions.add(target));
 		}
 	}, [dispatch, favorites]);
 

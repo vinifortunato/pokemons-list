@@ -6,6 +6,7 @@
 	padding: 10px 15px;
 	margin-bottom: 15px;
 	font-size: small;
+	position: relative;
 }
 
 .header-menu-container {
@@ -30,14 +31,58 @@
 }
 
 .header-utils-pokeball-text {
+	cursor: pointer;
 	margin-right: 8px;
 }
 
 .header-icon-adapter {
+	cursor: pointer;
 	width: 20px;
 	height: 20px;
 }
 
 .header-icon {
 	width: 100%;
+}
+
+.header-favorites-wrapper {
+	background-color: white;
+	position: fixed;
+	right: 0px;
+	bottom: 0px;
+	width: 300px;
+	height: calc(100% - 20px);
+	z-index: 1;
+	transform: translateX(100%);
+	transition: transform 300ms ease-in-out;
+	border-left: 1px solid lightgray;
+	padding: 10px 10px;
+	overflow-y: auto;
+}
+
+.header-favorites-open {
+	transform: translateX(0%);
+}
+
+.header-favorites-list {
+	margin: 8px 0px 10px 0px;
+}
+
+.header-favorites-list-item {
+	display: flex;
+	align-items: center;
+	text-transform: capitalize;
+	font-size: small;
+	border-bottom: solid 1px lightgray;
+}
+
+.header-favorites-list-item-image-adapter {
+	width: 68px;
+	height: auto;
+	margin-right: 10px;
+}
+
+.header-favorites-list-item-image {
+	width: 100%;
+	height: auto;
 }

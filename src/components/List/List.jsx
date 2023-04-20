@@ -13,7 +13,7 @@ function List({ items = [], favorites = [], onItemFavorite, onItemDetailsClick }
 
 	const itemsMap = useMemo(() => {
 		return items.map((pokemon) => {
-			const isFavorite = favorites.includes(pokemon.name);
+			const isFavorite = favorites.find((element) => element.name === pokemon.name);
 			const sprite = pokemon.sprite;
 			return (
 				<div key={pokemon.name} className="list-item" data-testid={`list-item-${pokemon.name}`}>
