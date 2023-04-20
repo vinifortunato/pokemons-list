@@ -21,6 +21,7 @@
 	flex: 1;
 	justify-content: center;
 	align-items: center;
+	font-size: medium;
 }
 
 .header-utils-container {
